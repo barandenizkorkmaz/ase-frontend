@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { Row, Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { loadState, saveState } from '../../localstorage/LocalStorage';
 import { client } from '../../network/PostRequest';
 
 
@@ -26,42 +27,43 @@ export class LoginComponent extends Component {
         this.setState({ password: event.target.value });
     }
 
-    getToken(response){
+    getToken(response) {
         console.log(response);
     }
 
     sendLoginRequest(event) {
-        event.preventDefault();
         console.log(this.state);
+        saveState("login",true);
+        console.log(loadState("login"));
+        event.preventDefault();
         let username = this.state.username;
         let password = this.state.password;
         client.post('/user/login', {
-            "email":username,
-            "password":password
+            "email": username,
+            "password": password
         })
-        .then((response) => {
-            this.getToken(response);
-        });
+            .then((response) => {
+                this.getToken(response);
+            });
     }
 
     render() {
         return <Container >
-            <Row className="justify-content-md-center" xs={6} md={4}>
+            <Row className="justify-content-md-center mt-5" xs={6} md={2}>
                 <Form onSubmit={this.sendLoginRequest}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" value={this.state.username} onChange={this.handleChangeUsername} />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else. {this.state.username}
-                        </Form.Text>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
+                    <div className="d-grid gap-2">
+                        <Button variant="primary" type="submit" size="lg">
+                            Submit
+                        </Button>
+                    </div>
                 </Form>
             </Row>
         </Container>
