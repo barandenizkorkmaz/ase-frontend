@@ -3,7 +3,7 @@ import { Row, Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { loadState, saveState } from '../../localstorage/LocalStorage';
-import { client } from '../../network/PostRequest';
+import axios from "axios";
 
 
 export class LoginComponent extends Component {
@@ -11,16 +11,16 @@ export class LoginComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
+            email: "",
             password: ""
         };
-        this.handleChangeUsername = this.handleChangeUsername.bind(this);
+        this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.sendLoginRequest = this.sendLoginRequest.bind(this);
     }
 
-    handleChangeUsername(event) {
-        this.setState({ username: event.target.value });
+    handleChangeEmail(event) {
+        this.setState({ email: event.target.value });
     }
 
     handleChangePassword(event) {
@@ -32,19 +32,21 @@ export class LoginComponent extends Component {
     }
 
     sendLoginRequest(event) {
-        console.log(this.state);
-        saveState("login",true);
-        console.log(loadState("login"));
         event.preventDefault();
-        let username = this.state.username;
-        let password = this.state.password;
-        client.post('/user/login', {
-            "email": username,
-            "password": password
-        })
-            .then((response) => {
-                this.getToken(response);
-            });
+
+        axios.post("user/login", this.state)
+            .then(
+                (response) => {
+                    // TODO: 10.01.2023 - Implement login logic.
+                    console.log(response)
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error)
+                }
+            )
+
     }
 
     render() {
@@ -52,8 +54,8 @@ export class LoginComponent extends Component {
             <Row className="justify-content-md-center mt-5" xs={6} md={2}>
                 <Form onSubmit={this.sendLoginRequest}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" value={this.state.username} onChange={this.handleChangeUsername} />
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Email" value={this.state.email} onChange={this.handleChangeEmail} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
