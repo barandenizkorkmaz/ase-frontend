@@ -38,69 +38,100 @@ export class AseNavbar extends Component {
                             <Nav.Link href="scanqr">
                                 Scan QR
                             </Nav.Link>
-                            <NavDropdown title="Add" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.2">
-                                    <Link to="add/customer">
-                                        Add Customer
+                            <NavDropdown title="BoxForDispatcher" id="basic-nav-dropdown">
+                                <NavDropdown.Item>
+                                    <Link to="add/box">
+                                        Add Box
                                     </Link>
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">
-                                    <Link to="add/deliverer">
-                                        Add Deliverer
+                                <NavDropdown.Item>
+                                    <Link to="dispatcher/box/list">
+                                        List Box
                                     </Link>
                                 </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
+                                <NavDropdown.Item>
+                                    <Link to="update/box">
+                                        Update Box
+                                    </Link>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <Link to="delete/box">
+                                        Delete Box
+                                    </Link>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            <NavDropdown title="BoxForDeliverer" id="basic-nav-dropdown">
+                                <NavDropdown.Item>
+                                    <Link to="deliverer/box/list">
+                                        List Box For Deliverer
+                                    </Link>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            <NavDropdown title="DeliveryForDispacther" id="basic-nav-dropdown">
+                                <NavDropdown.Item>
                                     <Link to="add/delivery">
                                         Add Delivery
                                     </Link>
                                 </NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown title="Delete" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.2">
-                                    <Link to="delete/customer">
-                                        Delete Customer
+                                <NavDropdown.Item>
+                                    <Link to="dispacther/delivery/list">
+                                        List Delivery
                                     </Link>
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">
-                                    <Link to="delete/deliverer">
-                                        Delete Deliverer
+                                <NavDropdown.Item>
+                                    <Link to="update/delivery">
+                                        Update Delivery
                                     </Link>
-
                                 </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
+                                <NavDropdown.Item>
                                     <Link to="delete/delivery">
                                         Delete Delivery
                                     </Link>
                                 </NavDropdown.Item>
                             </NavDropdown>
-                            <NavDropdown title="Update" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.2">
-                                    Update Customer
-                                </NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">
-                                    Update Deliverer
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">
-                                    Update Delivery
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown title="List" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.4">
-                                    <Link to="list/delivery">
+                            <NavDropdown title="DeliveryForDeliverer" id="basic-nav-dropdown">
+                                <NavDropdown.Item>
+                                    <Link to="deliverer/delivery/list">
                                         List Delivery
                                     </Link>
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.4">
-                                    <Link to="list/customer">
-                                        List Customer
+                            </NavDropdown>
+                            <NavDropdown title="DeliveryForCustomer" id="basic-nav-dropdown">
+                                <NavDropdown.Item>
+                                    <Link to="customer/delivery/list/active">
+                                        List Delivery For User Active
                                     </Link>
                                 </NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.4">
-                                    <Link to="list/deliverer">
-                                        List Deliverer
+                                <NavDropdown.Item>
+                                    <Link to="customer/delivery/list/past">
+                                        List Delivery For User Past
+                                    </Link>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <Link to="customer/delivery/track">
+                                        Track Delivery For User
+                                    </Link>
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                            <NavDropdown title="User" id="basic-nav-dropdown">
+                                <NavDropdown.Item>
+                                    <Link to="add/user">
+                                        Add User
+                                    </Link>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <Link to="list/user">
+                                        List User
+                                    </Link>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <Link to="update/user">
+                                        Update User
+                                    </Link>
+                                </NavDropdown.Item>
+                                <NavDropdown.Item>
+                                    <Link to="delete/user">
+                                        Delete User
                                     </Link>
                                 </NavDropdown.Item>
                             </NavDropdown>
