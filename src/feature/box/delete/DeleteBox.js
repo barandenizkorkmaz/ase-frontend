@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import axios from "axios";
 
 
-export class DeleteDelivery extends Component {
+export class DeleteBox extends Component {
 
     constructor(props) {
         super(props);
@@ -14,14 +14,14 @@ export class DeleteDelivery extends Component {
             id: ""
         };
         this.handleChangeId = this.handleChangeId.bind(this);
-        this.deleteDeliveryRequest = this.deleteDeliveryRequest.bind(this);
+        this.deleteBoxRequest = this.deleteBoxRequest.bind(this);
     }
 
     handleChangeId(event) {
         this.setState({ id: event.target.value });
     }
 
-    deleteDeliveryRequest(event) {
+    deleteBoxRequest(event) {
         event.preventDefault();
         const id = this.state.id
         console.log(id)
@@ -29,7 +29,7 @@ export class DeleteDelivery extends Component {
             .then(
                 (response) => {
                     console.log(response)
-                    alert(`Delivery deleted.`)
+                    alert(`Box deleted.`)
                 }
             )
             .catch(
@@ -43,7 +43,7 @@ export class DeleteDelivery extends Component {
     render() {
         return <Container >
             <Row classId="justify-content-md-center mt-5" xs={6} md={2}>
-                <Form onSubmit={this.deleteDeliveryRequest}>
+                <Form onSubmit={this.deleteBoxRequest}>
                     <Form.Group classId="mb-1" >
                         <Form.Label>Id</Form.Label>
                         <Form.Control type="text" placeholder="Enter id" value={this.state.id} onChange={this.handleChangeId} />

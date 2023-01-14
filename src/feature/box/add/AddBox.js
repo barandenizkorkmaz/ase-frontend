@@ -35,10 +35,11 @@ export class AddBox extends Component {
 
     createBoxRequest(event) {
         event.preventDefault();
-        axios.post("box/create", this.state)
+        axios.post("", this.state)
             .then(
                 (response) => {
                     console.log(response)
+                    alert(`New box created.`)
                 }
             )
             .catch(

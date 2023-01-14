@@ -35,10 +35,11 @@ export class AddDelivery extends Component {
 
     createDeliveryRequest(event) {
         event.preventDefault();
-        axios.post("delivery/create", this.state)
+        axios.post("", this.state)
             .then(
                 (response) => {
                     console.log(response)
+                    alert(`New delivery created.`)
                 }
             )
             .catch(

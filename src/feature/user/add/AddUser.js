@@ -36,10 +36,11 @@ export class AddUser extends Component {
     createUserRequest(event) {
         event.preventDefault();
         console.log(this.state);
-        axios.post("user/register", this.state)
+        axios.post("", this.state)
             .then(
                 (response) => {
                     console.log(response)
+                    alert(`New user created.`)
                 }
             )
             .catch(
