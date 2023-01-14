@@ -40,7 +40,7 @@ export class AseNavbar extends Component {
                             </Nav.Link>
                             <NavDropdown title="BoxForDispatcher" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="add/box">
+                                    <Link to="box">
                                         Add Box
                                     </Link>
                                 </NavDropdown.Item>
@@ -69,7 +69,7 @@ export class AseNavbar extends Component {
                             </NavDropdown>
                             <NavDropdown title="DeliveryForDispacther" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="add/delivery">
+                                    <Link to="delivery">
                                         Add Delivery
                                     </Link>
                                 </NavDropdown.Item>
@@ -115,7 +115,7 @@ export class AseNavbar extends Component {
                             </NavDropdown>
                             <NavDropdown title="User" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="add/user">
+                                    <Link to="user">
                                         Add User
                                     </Link>
                                 </NavDropdown.Item>
