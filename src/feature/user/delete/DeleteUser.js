@@ -29,7 +29,11 @@ export class DeleteUser extends Component {
             .then(
                 (response) => {
                     console.log(response)
-                    alert(`User deleted.`)
+                    if(response.data.successful){
+                        alert(`User deleted.`)
+                    }else{
+                        alert(`User not found.`)
+                    }
                 }
             )
             .catch(

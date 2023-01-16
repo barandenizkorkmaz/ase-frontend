@@ -29,7 +29,11 @@ export class DeleteBox extends Component {
             .then(
                 (response) => {
                     console.log(response)
-                    alert(`Box deleted.`)
+                    if(response.data.successful){
+                        alert(`Box deleted.`)
+                    }else{
+                        alert(`Box not found.`)
+                    }
                 }
             )
             .catch(
