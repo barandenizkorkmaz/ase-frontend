@@ -108,7 +108,7 @@ export class AseNavbar extends Component {
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="customer/delivery/track">
+                                    <Link to="delivery/track">
                                         Track Delivery For User
                                     </Link>
                                 </NavDropdown.Item>
