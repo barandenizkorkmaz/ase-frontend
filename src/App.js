@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AseLayout from './general/AseLayout';
 import { AddDelivery } from './feature/delivery/add/AddDelivery';
+import { UpdateDelivery } from './feature/delivery/update/UpdateDelivery';
+import { UpdateBox } from './feature/box/update/UpdateBox';
+import { UpdateUser } from './feature/user/update/UpdateUser';
 import { TrackDelivery } from './feature/delivery/track/TrackDelivery';
 import { AddBox } from './feature/box/add/AddBox';
 import { DeleteBox } from './feature/box/delete/DeleteBox';
@@ -40,7 +43,9 @@ function App() {
           <Route exact path="/box/delete" element={<DeleteBox />} />
           <Route exact path="/delivery/delete" element={<DeleteDelivery />} />
           <Route exact path="/user/delete" element={<DeleteUser />} />
-          <Route exact path="/update/delivery" element={<h1>Update Deliverey</h1>} />
+          <Route exact path="/delivery/update" element={<UpdateDelivery />} />
+          <Route exact path="/box/update" element={<UpdateBox />} />
+          <Route exact path="/user/update" element={<UpdateUser />} />
           <Route exact path="/scanqr" element={<ScanQr/>} />
         </Routes>
       </AseLayout>
