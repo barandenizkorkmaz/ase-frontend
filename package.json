@@ -12,6 +12,7 @@
     "react-bootstrap": "^2.7.0",
     "react-bootstrap-sidebar-menu": "^2.0.3",
     "react-dom": "^18.2.0",
+    "react-qr-code": "^2.0.11",
     "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
@@ -41,5 +42,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy":"http://localhost:8086"
+  "proxy": "http://localhost:10789"
 }
