@@ -26,7 +26,7 @@ export class AseNavbar extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="logout">
+                            <Nav.Link href="/logout">
                                 {
                                     this.getLoginStatus() ? (
                                         "Logout"
@@ -40,97 +40,97 @@ export class AseNavbar extends Component {
                             </Nav.Link>
                             <NavDropdown title="BoxForDispatcher" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="box/create">
+                                    <Link to="/box/create">
                                         Add Box
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="dispatcher/box/list">
+                                    <Link to="/box/list/all">
                                         List Box
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="update/box">
+                                    <Link to="/update/box">
                                         Update Box
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="box/delete">
+                                    <Link to="/box/delete">
                                         Delete Box
                                     </Link>
                                 </NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="BoxForDeliverer" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="deliverer/box/list">
+                                    <Link to="/deliverer/box/list">
                                         List Box For Deliverer
                                     </Link>
                                 </NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="DeliveryForDispacther" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="delivery/create">
+                                    <Link to="/delivery/create">
                                         Add Delivery
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="dispacther/delivery/list">
+                                    <Link to="/delivery/list/dispatcher/all">
                                         List Delivery
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="update/delivery">
+                                    <Link to="/update/delivery">
                                         Update Delivery
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="delivery/delete">
+                                    <Link to="/delivery/delete">
                                         Delete Delivery
                                     </Link>
                                 </NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="DeliveryForDeliverer" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="deliverer/delivery/list">
+                                    <Link to="/list/deliverer">
                                         List Delivery
                                     </Link>
                                 </NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="DeliveryForCustomer" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="customer/delivery/list/active">
+                                    <Link to="/list/customer/active">
                                         List Delivery For User Active
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="customer/delivery/list/past">
+                                    <Link to="/list/customer/past">
                                         List Delivery For User Past
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="customer/delivery/track">
+                                    <Link to="/customer/delivery/track">
                                         Track Delivery For User
                                     </Link>
                                 </NavDropdown.Item>
                             </NavDropdown>
                             <NavDropdown title="User" id="basic-nav-dropdown">
                                 <NavDropdown.Item>
-                                    <Link to="user/register">
+                                    <Link to="/user/register">
                                         Add User
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="list/user">
+                                    <Link to="/list/user">
                                         List User
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="user/delete">
+                                    <Link to="/user/delete">
                                         Update User
                                     </Link>
                                 </NavDropdown.Item>
                                 <NavDropdown.Item>
-                                    <Link to="delete/user">
+                                    <Link to="/delete/user">
                                         Delete User
                                     </Link>
                                 </NavDropdown.Item>

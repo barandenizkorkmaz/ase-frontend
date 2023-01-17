@@ -9,8 +9,13 @@ import { DeleteBox } from './feature/box/delete/DeleteBox';
 import { DeleteDelivery } from './feature/delivery/delete/DeleteDelivery';
 import { DeleteUser } from './feature/user/delete/DeleteUser';
 import { AddUser } from './feature/user/add/AddUser';
-import { ListDelivery } from './feature/delivery/list/ListDelivery';
-import { ScanQr } from './feature/scanqr/ScanQr';
+import { ListDeliveryForDispatcher } from './feature/delivery/list/dispatcher/ListDeliveryForDispatcher';
+import { ScanQr } from './feature/scanqr/ScanQr';
+import { ListBoxForDispatcher } from './feature/box/list/dispatcher/ListBoxForDispatcher';
+import { ListDeliveryForDeliverer } from './feature/delivery/list/deliverer/ListDeliveryForDeliverer';
+import { ListActiveDeliveryForCustomer } from './feature/delivery/list/customer/active/ListActiveDeliveryForCustomer';
+import { ListPastDeliveryForCustomer } from './feature/delivery/list/customer/past/ListPastDeliveryForCustomer';
+import { ListUser } from './feature/user/list/ListUser';
 
 
 function App() {
@@ -20,7 +25,13 @@ function App() {
         <Routes>
           <Route exact path="/" element={<LoginComponent />} />
           <Route exact path="/home" element={<h1>Deneme</h1>} />
-          <Route exact path="/list/delivery" element={<ListDelivery />} />
+          <Route exact path="/list/delivery" element={<h1>Deneme</h1>} />
+          <Route exact path="/delivery/list/dispatcher/all" element={<ListDeliveryForDispatcher/>} />
+          <Route exact path="/box/list/all" element={<ListBoxForDispatcher/>} />
+          <Route exact path="/list/deliverer" element={<ListDeliveryForDeliverer/>} />
+          <Route exact path="/list/customer/active" element={<ListActiveDeliveryForCustomer/>} />
+          <Route exact path="/list/user" element={<ListUser/>} />
+          <Route exact path="/list/customer/past" element={<ListPastDeliveryForCustomer/>} />
           <Route exact path="/delivery/create" element={<AddDelivery />} />
           <Route exact path="/box/create" element={<AddBox />} />
           <Route exact path="/user/register" element={<AddUser />} />
@@ -29,7 +40,6 @@ function App() {
           <Route exact path="/user/delete" element={<DeleteUser />} />
           <Route exact path="/update/delivery" element={<h1>Update Deliverey</h1>} />
           <Route exact path="/scanqr" element={<ScanQr/>} />
-
         </Routes>
       </AseLayout>
     </BrowserRouter>
