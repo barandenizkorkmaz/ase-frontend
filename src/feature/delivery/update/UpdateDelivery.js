@@ -22,8 +22,13 @@ export class UpdateDelivery extends Component {
         this.handleChangeDelivererId = this.handleChangeDelivererId.bind(this);
         this.handleChangeCustomerId = this.handleChangeCustomerId.bind(this);
         this.handleChangeBoxId = this.handleChangeBoxId.bind(this);
+        this.handleChangeDeliveryStatus = this.handleChangeDeliveryStatus.bind(this);
         this.updateDeliveryRequest = this.updateDeliveryRequest.bind(this);
         this.getDeliveryRequest = this.getDeliveryRequest.bind(this);
+    }
+
+    handleChangeDeliveryStatus(event) {
+        this.setState({ deliveryStatus: event.target.value });
     }
 
     handleChangeSearchDeliveryId(event) {
@@ -54,6 +59,7 @@ export class UpdateDelivery extends Component {
                     this.setState({ deliveryStatus: response.data.deliveryStatus })
                     this.setState({ customerId: response.data.customerId })
                     this.setState({ delivererId: response.data.delivererId })
+                    this.setState({ deliveryStatus: response.data.deliveryStatus })
                     this.setState({ boxId: response.data.boxId })
 
                 }
@@ -116,10 +122,53 @@ export class UpdateDelivery extends Component {
                         <Form.Label>Box ID</Form.Label>
                         <Form.Control type="text" placeholder="Box id" value={this.state.boxId} onChange={this.handleChangeBoxId} />
                     </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Delivery Status</Form.Label>
-                        <Form.Control type="text" placeholder="Delivery status" value={this.state.deliveryStatus} disabled />
-                    </Form.Group>
+                        <Form.Group controlId="this.state.deliveryStatus">
+                          <Form.Label>Delivery status</Form.Label>
+                          {['radio'].map((type) => (
+                            <div key={`inline-${type}`} className="mb-3">
+                              <Form.Check
+                                inline
+                                label="DISPATCHED"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-1`}
+                                onChange={this.handleChangeDeliveryStatus}
+                                checked={this.state.deliveryStatus === "DISPATCHED"}
+                                value="0"
+                              />
+                              <Form.Check
+                                inline
+                                label="SHIPPING"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-2`}
+                                onChange={this.handleChangeDeliveryStatus}
+                                checked={this.state.deliveryStatus === "SHIPPING"}
+                                value="1"
+                              />
+                              <Form.Check
+                                inline
+                                label="DELIVERED"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-3`}
+                                onChange={this.handleChangeDeliveryStatus}
+                                checked={this.state.deliveryStatus === "DELIVERED"}
+                                value="2"
+                              />
+                              <Form.Check
+                                  inline
+                                  label="COLLECTED"
+                                  name="group1"
+                                  type={type}
+                                  id={`inline-${type}-3`}
+                                  onChange={this.handleChangeDeliveryStatus}
+                                  checked={this.state.deliveryStatus === "COLLECTED"}
+                                  value="2"
+                                />
+                            </div>
+                          ))}
+                        </Form.Group>
                     <div className="d-grid gap-2">
                         <Button variant="primary" type="submit" size="lg">
                             Update

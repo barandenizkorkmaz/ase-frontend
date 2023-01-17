@@ -109,10 +109,43 @@ export class UpdateUser extends Component {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handleChangePassword} />
                     </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>UserType</Form.Label>
-                        <Form.Control type="text" placeholder="UserType" value={this.state.userType} onChange={this.handleChangeUserType}  disabled />
-                    </Form.Group>
+                        <Form.Group controlId="this.state.userType">
+                          <Form.Label>User Type</Form.Label>
+                          {['radio'].map((type) => (
+                            <div key={`inline-${type}`} className="mb-3">
+                              <Form.Check
+                                inline
+                                label="CUSTOMER"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-1`}
+                                onChange={this.handleChangeUserType}
+                                checked={this.state.userType === "CUSTOMER"}
+                                value="0"
+                              />
+                              <Form.Check
+                                inline
+                                label="DELIVERER"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-2`}
+                                onChange={this.handleChangeUserType}
+                                checked={this.state.userType === "DELIVERER"}
+                                value="1"
+                              />
+                              <Form.Check
+                                inline
+                                label="DISPATCHER"
+                                name="group1"
+                                type={type}
+                                id={`inline-${type}-3`}
+                                onChange={this.handleChangeUserType}
+                                checked={this.state.userType === "DISPATCHER"}
+                                value="2"
+                              />
+                            </div>
+                          ))}
+                        </Form.Group>
                     <div className="d-grid gap-2">
                         <Button variant="primary" type="submit" size="lg">
                             Update
