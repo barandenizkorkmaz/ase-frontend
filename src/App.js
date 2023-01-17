@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AseLayout from './general/AseLayout';
 import { AddDelivery } from './feature/delivery/add/AddDelivery';
+import { TrackDelivery } from './feature/delivery/track/TrackDelivery';
 import { AddBox } from './feature/box/add/AddBox';
 import { DeleteBox } from './feature/box/delete/DeleteBox';
 import { DeleteDelivery } from './feature/delivery/delete/DeleteDelivery';
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/list/user" element={<ListUser/>} />
           <Route exact path="/list/customer/past" element={<ListPastDeliveryForCustomer/>} />
           <Route exact path="/delivery/create" element={<AddDelivery />} />
+          <Route exact path="/delivery/track" element={<TrackDelivery />} />
           <Route exact path="/box/create" element={<AddBox />} />
           <Route exact path="/user/register" element={<AddUser />} />
           <Route exact path="/box/delete" element={<DeleteBox />} />

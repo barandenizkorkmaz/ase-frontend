@@ -29,7 +29,12 @@ export class DeleteDelivery extends Component {
             .then(
                 (response) => {
                     console.log(response)
-                    alert(`Delivery deleted.`)
+                    if(response.data.successful){
+                        alert(`Delivery deleted.`)
+                    }else{
+                        alert(`Delivery not found.`)
+                    }
+
                 }
             )
             .catch(
