@@ -11,8 +11,11 @@ export class LoginComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: "",
             email: "",
-            password: ""
+            password: "",
+            userType: "",
+            jwtToken: ""
         };
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -27,10 +30,6 @@ export class LoginComponent extends Component {
         this.setState({ password: event.target.value });
     }
 
-    getToken(response) {
-        console.log(response);
-    }
-
     sendLoginRequest(event) {
         event.preventDefault();
 
@@ -39,10 +38,21 @@ export class LoginComponent extends Component {
                 (response) => {
                     // TODO: 10.01.2023 - Implement login logic.
                     console.log(response)
+                    const responseData = response.data
+                    const responseHeader = response.headers
+                    this.setState({
+                        id: responseData.id,
+                        userType: responseData.userType,
+                        jwtToken: response.headers.authorization.replace("Bearer ", "")
+                    })
+                    saveState("login",true);
+                    console.log(this.state)
                 }
             )
             .catch(
                 (error) => {
+                    // TODO: Shall we set login state as false?
+                    saveState("login",false);
                     console.log(error)
                 }
             )
