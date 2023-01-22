@@ -137,7 +137,7 @@ export class AseNavbar extends Component {
                                     ) : <div />
                             }
                             {
-                                this.state.userType === "Deliverer" ?
+                                this.state.userType === "DELIVERER" ?
                                     (
                                         <React.Fragment>
                                             <NavDropdown title="BoxForDeliverer" id="basic-nav-dropdown">
@@ -159,7 +159,7 @@ export class AseNavbar extends Component {
                                     ) : <div />
                             }
                             {
-                                this.state.login === true ?
+                                this.state.userType === "CUSTOMER" ?
                                     (
                                         <React.Fragment>
                                             <NavDropdown title="DeliveryForCustomer" id="basic-nav-dropdown">
