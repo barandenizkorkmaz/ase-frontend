@@ -6,13 +6,17 @@ import { loadState, saveState } from '../../localstorage/LocalStorage';
 import axios from "axios";
 
 
+
 export class LoginComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            id: "",
             email: "",
-            password: ""
+            password: "",
+            userType: "",
+            jwtToken: ""
         };
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -27,22 +31,34 @@ export class LoginComponent extends Component {
         this.setState({ password: event.target.value });
     }
 
-    getToken(response) {
-        console.log(response);
-    }
-
     sendLoginRequest(event) {
         event.preventDefault();
-
-        axios.post("user/login", this.state)
+        let loginParams = { "email": this.state.email, "password": this.state.password }
+        axios.post("user/login", loginParams)
             .then(
                 (response) => {
                     // TODO: 10.01.2023 - Implement login logic.
                     console.log(response)
+                    const responseData = response.data
+                    const responseHeader = response.headers
+                    this.state = {
+                        email: this.state.email,
+                        password: this.state.password,
+                        id: responseData.id,
+                        userType: responseData.userType,
+                        jwtToken: responseHeader['authorization'].split("Bearer")[1].toString(),
+                    };
+                    saveState("login", true);
+                    saveState("token", this.state.jwtToken);
+                    saveState("userType", this.state.userType);
+                    console.log(this.state)
+                    window.location.href = "/home";
                 }
             )
             .catch(
                 (error) => {
+                    // TODO: Shall we set login state as false?
+                    saveState("login", false);
                     console.log(error)
                 }
             )
