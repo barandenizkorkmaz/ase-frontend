@@ -4,6 +4,7 @@ import { Row, Container } from 'react-bootstrap';
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
+import { instanceOfAxious } from '../../../network/requests';
 
 
 export class UpdateDelivery extends Component {
@@ -11,72 +12,76 @@ export class UpdateDelivery extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchDeliveryId: "",
-            deliveryId: "",
-            delivererId: "",
-            customerId: "",
             deliveryStatus: "",
-            boxId: ""
+            selectedDelivery: {},
+            deliveries: [],
         };
-        this.handleChangeSearchDeliveryId = this.handleChangeSearchDeliveryId.bind(this);
         this.handleChangeDelivererId = this.handleChangeDelivererId.bind(this);
         this.handleChangeCustomerId = this.handleChangeCustomerId.bind(this);
         this.handleChangeBoxId = this.handleChangeBoxId.bind(this);
+        this.handleChangeSearchBoxId = this.handleChangeSearchBoxId.bind(this);
         this.handleChangeDeliveryStatus = this.handleChangeDeliveryStatus.bind(this);
         this.updateDeliveryRequest = this.updateDeliveryRequest.bind(this);
-        this.getDeliveryRequest = this.getDeliveryRequest.bind(this);
+        this.getDeliveries();
+    }
+
+    getDeliveries() {
+        instanceOfAxious.get("/delivery/list/dispatcher/all")
+            .then(
+                (response) => {
+                    this.setState(
+                        { deliveries: [...response.data] }
+                    )
+                    console.log(this.state.deliveries);
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error)
+                }
+            )
     }
 
     handleChangeDeliveryStatus(event) {
         this.setState({ deliveryStatus: event.target.value });
     }
 
-    handleChangeSearchDeliveryId(event) {
-        this.setState({ searchDeliveryId: event.target.value });
-    }
-
     handleChangeDelivererId(event) {
-        this.setState({ delivererId: event.target.value });
+        this.setState({ 
+            selectedDelivery: {
+                ...this.state.selectedDelivery,
+                delivererId : event.target.value
+            }
+        });
     }
 
     handleChangeCustomerId(event) {
-        this.setState({ customerId: event.target.value });
+        this.setState({ 
+            selectedDelivery: {
+                ...this.state.selectedDelivery,
+                customerId : event.target.value
+            }
+        });    
     }
 
     handleChangeBoxId(event) {
-        this.setState({ boxId: event.target.value });
-    }
-
-    getDeliveryRequest(event) {
-        event.preventDefault();
-        //this.setState({ deliveryId: event.target.value });
-        const id = this.state.searchDeliveryId
-        axios.get("list/" + id)
-            .then(
-                (response) => {
-                    console.log(response)
-                    this.setState({ deliveryId: response.data.id })
-                    this.setState({ deliveryStatus: response.data.deliveryStatus })
-                    this.setState({ customerId: response.data.customerId })
-                    this.setState({ delivererId: response.data.delivererId })
-                    this.setState({ deliveryStatus: response.data.deliveryStatus })
-                    this.setState({ boxId: response.data.boxId })
-
-                }
-            )
-            .catch(
-                (error) => {
-                    alert(`Delivery not found.`)
-                    console.log(error)
-                }
-            )
-
+        this.setState({ 
+            selectedDelivery: {
+                ...this.state.selectedDelivery,
+                boxId : event.target.value
+            }
+        });
     }
 
     updateDeliveryRequest(event) {
         event.preventDefault();
         const id = this.state.deliveryId
-        axios.put("/delivery/update/" + id, this.state)
+        axios.put("/delivery/update/" + id,
+            {
+                ...this.state.selectedDelivery,
+                deliveryStatus: this.state.deliveryStatus
+            }
+        )
             .then(
                 (response) => {
                     console.log(response)
@@ -91,36 +96,36 @@ export class UpdateDelivery extends Component {
 
     }
 
+    handleChangeSearchBoxId(event) {
+        this.setState({
+            selectedDelivery: this.state.deliveries.find(index => index["id"] === event.target.value),
+            deliveryStatus: this.state.deliveries.find(index => index["id"] === event.target.value)["deliveryStatus"]
+        });
+    }
+
     render() {
         return <Container >
             <Row className="justify-content-md-center mt-5" xs={6} md={2}>
-                <Form onSubmit={this.getDeliveryRequest}>
+            <Form onSubmit={this.updateDeliveryRequest}>
                     <Form.Group className="mb-3" >
                         <Form.Label>Delivery ID</Form.Label>
-                        <Form.Control type="text" placeholder="Enter id" value={this.state.searchDeliveryId} onChange={this.handleChangeSearchDeliveryId} />
-                    </Form.Group>
-                    <div className="d-grid gap-2">
-                        <Button variant="primary" type="submit" size="lg">
-                            Get Delivery
-                        </Button>
-                    </div>
-                </Form>
-                <Form onSubmit={this.updateDeliveryRequest}>
-                    <Form.Group className="mb-3" >
-                        <Form.Label>Delivery ID</Form.Label>
-                        <Form.Control type="text" placeholder="Delivery id" value={this.state.deliveryId} disabled />
+                        <Form.Select aria-label="Default select example" onChange={this.handleChangeSearchBoxId}>
+                            {this.state.deliveries.map(function (object, i) {
+                                return <option key={i} value={object["id"]}> {object["id"]} </option>;
+                            })}
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3" >
-                        <Form.Label>Deliver ID</Form.Label>
-                        <Form.Control type="text" placeholder="Deliverer id" value={this.state.delivererId} onChange={this.handleChangeDelivererId} />
+                        <Form.Label>Deliver Email</Form.Label>
+                        <Form.Control type="text" placeholder="Deliverer Email" value={this.state.selectedDelivery["delivererEmail"]} onChange={this.handleChangeDelivererId} />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Customer ID</Form.Label>
-                        <Form.Control type="text" placeholder="Customer id" value={this.state.customerId} onChange={this.handleChangeCustomerId} />
+                        <Form.Label>Customer Email</Form.Label>
+                        <Form.Control type="text" placeholder="Customer Email" value={this.state.selectedDelivery["customerEmail"]} onChange={this.handleChangeCustomerId} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Box ID</Form.Label>
-                        <Form.Control type="text" placeholder="Box id" value={this.state.boxId} onChange={this.handleChangeBoxId} />
+                        <Form.Control type="text" placeholder="Box id" value={this.state.selectedDelivery["boxId"]} onChange={this.handleChangeBoxId} />
                     </Form.Group>
                         <Form.Group controlId="this.state.deliveryStatus">
                           <Form.Label>Delivery status</Form.Label>
@@ -174,7 +179,7 @@ export class UpdateDelivery extends Component {
                             Update
                         </Button>
                     </div>
-                </Form>
+                    </Form>
             </Row>
         </Container>
     }

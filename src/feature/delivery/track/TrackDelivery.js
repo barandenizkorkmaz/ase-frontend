@@ -4,6 +4,7 @@ import { Row, Container } from 'react-bootstrap';
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
+import { instanceOfAxious } from '../../../network/requests';
 
 
 export class TrackDelivery extends Component {
@@ -27,7 +28,7 @@ export class TrackDelivery extends Component {
     trackDeliveryRequest(event) {
         event.preventDefault();
         const id = this.state.deliveryId
-        axios.get("list/" + id)
+        instanceOfAxious.get("list/" + id)
             .then(
                 (response) => {
                     console.log(response)

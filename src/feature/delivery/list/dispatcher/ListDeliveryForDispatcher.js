@@ -3,6 +3,7 @@ import { Component } from "react";
 import { Button } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import QRCode from "react-qr-code";
+import { instanceOfAxious } from "../../../../network/requests";
 
 export class ListDeliveryForDispatcher extends Component {
 
@@ -18,7 +19,7 @@ export class ListDeliveryForDispatcher extends Component {
     }
 
     getDeliveries() {
-        axios.get("")
+        instanceOfAxious.get("")
             .then(
                 (response) => {
                     this.setState(
@@ -50,9 +51,9 @@ export class ListDeliveryForDispatcher extends Component {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Deliverer Id</th>
+                        <th>Deliverer Email</th>
                         <th>Box Id</th>
-                        <th>Customer Id</th>
+                        <th>Customer Email</th>
                         <th>Status</th>
                         <th>Generate Qr</th>
                     </tr>
@@ -62,9 +63,9 @@ export class ListDeliveryForDispatcher extends Component {
                         return (
                             <tr key={el["id"]}>
                                 <td>{el["id"]}</td>
-                                <td>{el["delivererId"]}</td>
+                                <td>{el["delivererEmail"]}</td>
                                 <td>{el["boxId"]}</td>
-                                <td>{el["customerId"]}</td>
+                                <td>{el["customerEmail"]}</td>
                                 <td>{el["deliveryStatus"]}</td>
                                 <td><Button onClick={() => this.generateQr(el["delivererId"])}>Generate</Button></td>
                             </tr>

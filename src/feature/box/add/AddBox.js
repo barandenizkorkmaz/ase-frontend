@@ -4,6 +4,7 @@ import { Row, Container } from 'react-bootstrap';
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
+import { instanceOfAxious } from '../../../network/requests';
 
 
 export class AddBox extends Component {
@@ -35,7 +36,7 @@ export class AddBox extends Component {
 
     createBoxRequest(event) {
         event.preventDefault();
-        axios.post("", this.state)
+        instanceOfAxious.post("", this.state)
             .then(
                 (response) => {
                     console.log(response)

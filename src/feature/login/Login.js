@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { loadState, saveState } from '../../localstorage/LocalStorage';
 import axios from "axios";
-
-
+import Cookies from 'js-cookie';
+import { instanceOfAxious } from '../../network/requests';
 
 export class LoginComponent extends Component {
 
@@ -21,6 +21,7 @@ export class LoginComponent extends Component {
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.sendLoginRequest = this.sendLoginRequest.bind(this);
+        this.getUserInfo = this.getUserInfo.bind(this);
     }
 
     handleChangeEmail(event) {
@@ -31,28 +32,43 @@ export class LoginComponent extends Component {
         this.setState({ password: event.target.value });
     }
 
+    getUserInfo(){
+        instanceOfAxious.get("user/list/"+this.state.email)
+            .then(
+                (response)=>{
+                    this.state = {
+                        ...this.state,
+                        email: response.data.email,
+                        userType: response.data.userType,
+                    };
+                    saveState("email",response.data.email);
+                    saveState("userType", this.state.userType);
+                    saveState("login", true);
+                    window.location.href = "/home";
+                }
+            )
+    }
+
     sendLoginRequest(event) {
         event.preventDefault();
         let loginParams = { "email": this.state.email, "password": this.state.password }
-        axios.post("user/login", loginParams)
+        instanceOfAxious.post("user/login", loginParams)
             .then(
                 (response) => {
-                    // TODO: 10.01.2023 - Implement login logic.
                     console.log(response)
                     const responseData = response.data
                     const responseHeader = response.headers
                     this.state = {
-                        email: this.state.email,
-                        password: this.state.password,
-                        id: responseData.id,
-                        userType: responseData.userType,
+                        ...this.state,
                         jwtToken: responseHeader['authorization'].split("Bearer")[1].toString(),
                     };
-                    saveState("login", true);
-                    saveState("token", this.state.jwtToken);
-                    saveState("userType", this.state.userType);
-                    console.log(this.state)
-                    window.location.href = "/home";
+                    if(this.state.jwtToken != null){
+                        let xsrfToken = Cookies.get("XSRF-TOKEN");
+                        axios.defaults.headers.common['Authorization'] = 'Bearer'+this.state.jwtToken;
+                        axios.defaults.headers.common['X-XSRF-TOKEN'] = xsrfToken;
+                        saveState("token", this.state.jwtToken);
+                        this.getUserInfo();
+                    }
                 }
             )
             .catch(

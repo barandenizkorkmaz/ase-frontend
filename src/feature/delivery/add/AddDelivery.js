@@ -4,6 +4,7 @@ import { Row, Container } from 'react-bootstrap';
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
+import { instanceOfAxious } from '../../../network/requests';
 
 
 export class AddDelivery extends Component {
@@ -11,8 +12,8 @@ export class AddDelivery extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            delivererId: "",
-            customerId: "",
+            delivererEmail: "",
+            customerEmail: "",
             boxId: ""
         };
         this.handleChangeDelivererId = this.handleChangeDelivererId.bind(this);
@@ -22,11 +23,11 @@ export class AddDelivery extends Component {
     }
 
     handleChangeDelivererId(event) {
-        this.setState({ delivererId: event.target.value });
+        this.setState({ delivererEmail: event.target.value });
     }
 
     handleChangeCustomerId(event) {
-        this.setState({ customerId: event.target.value });
+        this.setState({ customerEmail: event.target.value });
     }
 
     handleChangeBoxId(event) {
@@ -35,7 +36,7 @@ export class AddDelivery extends Component {
 
     createDeliveryRequest(event) {
         event.preventDefault();
-        axios.post("/delivery/create", this.state)
+        instanceOfAxious.post("/delivery/create", this.state)
             .then(
                 (response) => {
                     console.log(response)
@@ -55,12 +56,12 @@ export class AddDelivery extends Component {
             <Row className="justify-content-md-center mt-5" xs={6} md={2}>
                 <Form onSubmit={this.createDeliveryRequest}>
                     <Form.Group className="mb-3" >
-                        <Form.Label>Deliver ID</Form.Label>
-                        <Form.Control type="text" placeholder="Enter id" value={this.state.delivererId} onChange={this.handleChangeDelivererId} />
+                        <Form.Label>Deliver Email</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" value={this.state.delivererEmail} onChange={this.handleChangeDelivererId} />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Customer ID</Form.Label>
-                        <Form.Control type="text" placeholder="Enter id" value={this.state.customerId} onChange={this.handleChangeCustomerId} />
+                        <Form.Label>Customer Email</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" value={this.state.customerEmail} onChange={this.handleChangeCustomerId} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Box ID</Form.Label>
