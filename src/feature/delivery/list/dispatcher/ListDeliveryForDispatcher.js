@@ -35,11 +35,11 @@ export class ListDeliveryForDispatcher extends Component {
             )
     }
 
-    generateQr(delivererId) {
+    generateQr(deliverer) {
         this.setState(
             {
                 showQr: !this.state.showQr,
-                currentDeliverer: delivererId
+                currentDeliverer: deliverer
             }
         )
         console.log("showQr" + this.state.showQr);
@@ -67,7 +67,7 @@ export class ListDeliveryForDispatcher extends Component {
                                 <td>{el["boxId"]}</td>
                                 <td>{el["customerEmail"]}</td>
                                 <td>{el["deliveryStatus"]}</td>
-                                <td><Button onClick={() => this.generateQr(el["delivererId"])}>Generate</Button></td>
+                                <td><Button onClick={() => this.generateQr(el)}>Generate</Button></td>
                             </tr>
                         )
                     })}
@@ -78,7 +78,7 @@ export class ListDeliveryForDispatcher extends Component {
                             className="mt-5"
                             size={256}
                             style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                            value={this.state.currentDeliverer}
+                            value={this.state.currentDeliverer["id"]}
                             viewBox={`0 0 256 256`}
                         />
                         : <div />
