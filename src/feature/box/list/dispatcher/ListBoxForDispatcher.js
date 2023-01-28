@@ -1,6 +1,7 @@
 import { Component } from "react";
 import axios from "axios";
 import Table from 'react-bootstrap/Table';
+import { instanceOfAxious } from "../../../../network/requests";
 
 export class ListBoxForDispatcher extends Component{
 
@@ -13,7 +14,7 @@ export class ListBoxForDispatcher extends Component{
     }
 
     getBoxes() {
-        axios.get("")
+        instanceOfAxious.get("/box/list/all")
             .then(
                 (response) => {
                     this.setState(
