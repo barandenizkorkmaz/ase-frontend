@@ -33,15 +33,13 @@ export class LoginComponent extends Component {
     }
 
     getUserInfo(){
-        instanceOfAxious.get("user/list/"+this.state.email)
+        instanceOfAxious.get("user/info/"+this.state.email)
             .then(
                 (response)=>{
                     this.state = {
                         ...this.state,
-                        email: response.data.email,
                         userType: response.data.userType,
                     };
-                    saveState("email",response.data.email);
                     saveState("userType", this.state.userType);
                     saveState("login", true);
                     window.location.href = "/home";
@@ -66,6 +64,7 @@ export class LoginComponent extends Component {
                         let xsrfToken = Cookies.get("XSRF-TOKEN");
                         axios.defaults.headers.common['Authorization'] = 'Bearer'+this.state.jwtToken;
                         axios.defaults.headers.common['X-XSRF-TOKEN'] = xsrfToken;
+                        saveState("email",this.state.email);
                         saveState("token", this.state.jwtToken);
                         this.getUserInfo();
                     }

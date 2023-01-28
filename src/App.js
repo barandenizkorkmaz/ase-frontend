@@ -21,6 +21,7 @@ import { ListActiveDeliveryForCustomer } from './feature/delivery/list/customer/
 import { ListPastDeliveryForCustomer } from './feature/delivery/list/customer/past/ListPastDeliveryForCustomer';
 import { ListUser } from './feature/user/list/ListUser';
 import { loadState } from './localstorage/LocalStorage';
+import { ListBoxFroDeliverer } from './feature/box/list/deliverer/ListBoxForDeliverer';
 
 
 
@@ -42,6 +43,7 @@ function App() {
           <Route exact path="/login" element={<LoginComponent />} />
           <Route exact path="/home" element={getComponent(<h1>Deneme</h1>)} />
           <Route exact path="/list/delivery" element={<h1>Deneme</h1>} />
+          <Route exact path="/deliverer/box/list" element={<ListBoxFroDeliverer/>}/>
           <Route exact path="/delivery/list/dispatcher/all" element={getComponent(<ListDeliveryForDispatcher />)} />
           <Route exact path="/box/list/all" element={getComponent(<ListBoxForDispatcher />)} />
           <Route exact path="/list/deliverer" element={getComponent(<ListDeliveryForDeliverer />)} />
