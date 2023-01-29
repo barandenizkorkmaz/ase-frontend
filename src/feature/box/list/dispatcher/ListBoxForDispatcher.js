@@ -37,7 +37,6 @@ export class ListBoxForDispatcher extends Component{
                     <tr>
                         <th>#</th>
                         <th>Adress</th>
-                        <th>Raspberry Id</th>
                         <th>Name</th>
                     </tr>
                 </thead>
@@ -47,7 +46,6 @@ export class ListBoxForDispatcher extends Component{
                             <tr key={el["id"]}>
                                 <td>{el["id"]}</td>
                                 <td>{el["address"]}</td>
-                                <td>{el["raspberryId"]}</td>
                                 <td>{el["name"]}</td>
                             </tr>
                         )

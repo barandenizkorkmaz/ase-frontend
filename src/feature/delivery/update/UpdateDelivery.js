@@ -13,8 +13,11 @@ export class UpdateDelivery extends Component {
         super(props);
         this.state = {
             deliveryStatus: "",
+            delivererEmail: [],
+            customerEmail: [],
             selectedDelivery: {},
             deliveries: [],
+            boxes: []
         };
         this.handleChangeDelivererId = this.handleChangeDelivererId.bind(this);
         this.handleChangeCustomerId = this.handleChangeCustomerId.bind(this);
@@ -26,13 +29,26 @@ export class UpdateDelivery extends Component {
     }
 
     getDeliveries() {
-        instanceOfAxious.get("/delivery/list/dispatcher/all")
+        let requestList = [
+            "/delivery/list/dispatcher/all",
+            "/user/list/emails/deliverer",
+            "/user/list/emails/customer",
+            "/box/list/all"
+        ]
+        const requests = requestList.map((url) => instanceOfAxious.get(url));
+        axios.all(requests)
             .then(
                 (response) => {
                     this.setState(
-                        { deliveries: [...response.data] }
+                        {
+                            deliveries: [...response[0].data],
+                            customerEmail: [...response[2].data],
+                            delivererEmail: [...response[1].data],
+                            selectedDelivery: response[0].data[0],
+                            deliveryStatus: response[0].data[0].deliveryStatus,
+                            boxes: [...response[3].data]
+                        }
                     )
-                    console.log(this.state.deliveries);
                 }
             )
             .catch(
@@ -47,36 +63,36 @@ export class UpdateDelivery extends Component {
     }
 
     handleChangeDelivererId(event) {
-        this.setState({ 
+        this.setState({
             selectedDelivery: {
                 ...this.state.selectedDelivery,
-                delivererId : event.target.value
+                delivererEmail: event.target.value
             }
         });
     }
 
     handleChangeCustomerId(event) {
-        this.setState({ 
+        this.setState({
             selectedDelivery: {
                 ...this.state.selectedDelivery,
-                customerId : event.target.value
+                customerEmail: event.target.value
             }
-        });    
+        });
     }
 
     handleChangeBoxId(event) {
-        this.setState({ 
+        this.setState({
             selectedDelivery: {
                 ...this.state.selectedDelivery,
-                boxId : event.target.value
+                boxId: event.target.value
             }
         });
     }
 
     updateDeliveryRequest(event) {
         event.preventDefault();
-        const id = this.state.deliveryId
-        axios.put("/delivery/update/" + id,
+        const id = this.state.selectedDelivery["id"]
+        instanceOfAxious.put("/delivery/update/" + id,
             {
                 ...this.state.selectedDelivery,
                 deliveryStatus: this.state.deliveryStatus
@@ -106,7 +122,7 @@ export class UpdateDelivery extends Component {
     render() {
         return <Container >
             <Row className="justify-content-md-center mt-5" xs={6} md={2}>
-            <Form onSubmit={this.updateDeliveryRequest}>
+                <Form onSubmit={this.updateDeliveryRequest}>
                     <Form.Group className="mb-3" >
                         <Form.Label>Delivery ID</Form.Label>
                         <Form.Select aria-label="Default select example" onChange={this.handleChangeSearchBoxId}>
@@ -117,69 +133,81 @@ export class UpdateDelivery extends Component {
                     </Form.Group>
                     <Form.Group className="mb-3" >
                         <Form.Label>Deliver Email</Form.Label>
-                        <Form.Control type="text" placeholder="Deliverer Email" value={this.state.selectedDelivery["delivererEmail"]} onChange={this.handleChangeDelivererId} />
+                        <Form.Select aria-label="Default select example" onChange={this.handleChangeDelivererId}>
+                            {this.state.delivererEmail.map(function (object, i) {
+                                return <option key={i} value={object}> {object} </option>;
+                            })}
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Customer Email</Form.Label>
-                        <Form.Control type="text" placeholder="Customer Email" value={this.state.selectedDelivery["customerEmail"]} onChange={this.handleChangeCustomerId} />
+                        <Form.Select aria-label="Default select example" onChange={this.handleChangeCustomerId}>
+                            {this.state.customerEmail.map(function (object, i) {
+                                return <option key={i} value={object}> {object} </option>;
+                            })}
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Label>Box ID</Form.Label>
-                        <Form.Control type="text" placeholder="Box id" value={this.state.selectedDelivery["boxId"]} onChange={this.handleChangeBoxId} />
+                        <Form.Label>Box Name</Form.Label>
+                        <Form.Select aria-label="Default select example" onChange={this.handleChangeBoxId}>
+                            {this.state.boxes.map(function (object, i) {
+                                return <option key={i} value={object["id"]}> {object["name"]} </option>;
+                            })}
+                        </Form.Select>
                     </Form.Group>
-                        <Form.Group controlId="this.state.deliveryStatus">
-                          <Form.Label>Delivery status</Form.Label>
-                          {['radio'].map((type) => (
+                    <Form.Group controlId="this.state.deliveryStatus">
+                        <Form.Label>Delivery status</Form.Label>
+                        {['radio'].map((type) => (
                             <div key={`inline-${type}`} className="mb-3">
-                              <Form.Check
-                                inline
-                                label="DISPATCHED"
-                                name="group1"
-                                type={type}
-                                id={`inline-${type}-1`}
-                                onChange={this.handleChangeDeliveryStatus}
-                                checked={this.state.deliveryStatus === "DISPATCHED"}
-                                value="0"
-                              />
-                              <Form.Check
-                                inline
-                                label="SHIPPING"
-                                name="group1"
-                                type={type}
-                                id={`inline-${type}-2`}
-                                onChange={this.handleChangeDeliveryStatus}
-                                checked={this.state.deliveryStatus === "SHIPPING"}
-                                value="1"
-                              />
-                              <Form.Check
-                                inline
-                                label="DELIVERED"
-                                name="group1"
-                                type={type}
-                                id={`inline-${type}-3`}
-                                onChange={this.handleChangeDeliveryStatus}
-                                checked={this.state.deliveryStatus === "DELIVERED"}
-                                value="2"
-                              />
-                              <Form.Check
-                                  inline
-                                  label="COLLECTED"
-                                  name="group1"
-                                  type={type}
-                                  id={`inline-${type}-3`}
-                                  onChange={this.handleChangeDeliveryStatus}
-                                  checked={this.state.deliveryStatus === "COLLECTED"}
-                                  value="2"
+                                <Form.Check
+                                    inline
+                                    label="DISPATCHED"
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-1`}
+                                    onChange={this.handleChangeDeliveryStatus}
+                                    checked={this.state.deliveryStatus === "DISPATCHED"}
+                                    value="DISPATCHED"
+                                />
+                                <Form.Check
+                                    inline
+                                    label="SHIPPING"
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-2`}
+                                    onChange={this.handleChangeDeliveryStatus}
+                                    checked={this.state.deliveryStatus === "SHIPPING"}
+                                    value="SHIPPING"
+                                />
+                                <Form.Check
+                                    inline
+                                    label="DELIVERED"
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-3`}
+                                    onChange={this.handleChangeDeliveryStatus}
+                                    checked={this.state.deliveryStatus === "DELIVERED"}
+                                    value="DELIVERED"
+                                />
+                                <Form.Check
+                                    inline
+                                    label="COLLECTED"
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-3`}
+                                    onChange={this.handleChangeDeliveryStatus}
+                                    checked={this.state.deliveryStatus === "COLLECTED"}
+                                    value="COLLECTED"
                                 />
                             </div>
-                          ))}
-                        </Form.Group>
+                        ))}
+                    </Form.Group>
                     <div className="d-grid gap-2">
                         <Button variant="primary" type="submit" size="lg">
                             Update
                         </Button>
                     </div>
-                    </Form>
+                </Form>
             </Row>
         </Container>
     }

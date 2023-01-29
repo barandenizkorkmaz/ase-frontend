@@ -13,7 +13,8 @@ export class UpdateUser extends Component {
         super(props);
         this.state = {
             users: [],
-            selectedUser: {}
+            selectedUser: {},
+            userEmail: ""
         };
         this.handleChangeSearchUserId = this.handleChangeSearchUserId.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -65,7 +66,10 @@ export class UpdateUser extends Component {
             .then(
                 (response) => {
                     this.setState(
-                        { users: [...response.data] }
+                        { 
+                            users: [...response.data],
+                            selectedUser: response.data[0],
+                        }
                     )
                     console.log(this.state.deliveries);
                 }
@@ -79,11 +83,12 @@ export class UpdateUser extends Component {
 
     updateUserRequest(event) {
         event.preventDefault();
-        instanceOfAxious.put("/user/update/"+this.state.selectedUser["email"], this.state.selectedUser)
+        instanceOfAxious.put("/user/update/"+this.state.userEmail, this.state.selectedUser)
             .then(
                 (response) => {
                     console.log(response)
                     alert(`User updated.`)
+                    window.location.reload(false);
                 }
             )
             .catch(
@@ -97,6 +102,7 @@ export class UpdateUser extends Component {
     handleChangeSearchBoxId(event) {
         this.setState({
             selectedUser: this.state.users.find(index => index["email"] === event.target.value),
+            userEmail: event.target.value
         });
     }
 
@@ -110,7 +116,8 @@ export class UpdateUser extends Component {
                             {this.state.users.map(function (object, i) {
                                 return <option key={i} value={object["email"]}> {object["email"]} </option>;
                             })}
-                        </Form.Select>                    </Form.Group>
+                        </Form.Select>                    
+                    </Form.Group>
                     <Form.Group className="mb-3" >
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" placeholder="Email" value={this.state.selectedUser["email"]} onChange={this.handleChangeEmail} />
@@ -131,7 +138,7 @@ export class UpdateUser extends Component {
                                 id={`inline-${type}-1`}
                                 onChange={this.handleChangeUserType}
                                 checked={this.state.selectedUser["userType"] === "CUSTOMER"}
-                                value="0"
+                                value="CUSTOMER"
                               />
                               <Form.Check
                                 inline
@@ -141,7 +148,7 @@ export class UpdateUser extends Component {
                                 id={`inline-${type}-2`}
                                 onChange={this.handleChangeUserType}
                                 checked={this.state.selectedUser["userType"] === "DELIVERER"}
-                                value="1"
+                                value="DELIVERER"
                               />
                               <Form.Check
                                 inline
@@ -151,7 +158,7 @@ export class UpdateUser extends Component {
                                 id={`inline-${type}-3`}
                                 onChange={this.handleChangeUserType}
                                 checked={this.state.selectedUser["userType"] === "DISPATCHER"}
-                                value="2"
+                                value="DISPATCHER"
                               />
                             </div>
                           ))}

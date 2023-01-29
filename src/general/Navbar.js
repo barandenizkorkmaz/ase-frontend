@@ -60,9 +60,14 @@ export class AseNavbar extends Component {
                                     this.getLoginStatus()
                                 }
                             </Nav.Link>
-                            <Nav.Link href="scanqr">
-                                Scan QR
-                            </Nav.Link>
+                            {
+                                this.state.userType === "DELIVERER" ?
+                                    <Nav.Link href="scanqr">
+                                        Scan QR
+                                    </Nav.Link>
+                                    : <div />
+                            }
+
                             {
                                 this.state.userType === "DISPATCHER" ?
                                     (

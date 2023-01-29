@@ -34,7 +34,10 @@ export class UpdateBox extends Component {
             .then(
                 (response) => {
                     this.setState(
-                        { boxes: [...response.data] }
+                        { 
+                            boxes: [...response.data],
+                            selectedBox: response.data[0]
+                        }
                     )
                     console.log(this.state.deliveries);
                 }

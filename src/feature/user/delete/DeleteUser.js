@@ -45,16 +45,13 @@ export class DeleteUser extends Component {
             .then(
                 (response) => {
                     console.log(response)
-                    if (response.data.successful) {
-                        alert(`User deleted.`)
-                        window.location.reload(false);
-                    } else {
-                        alert(`User not found.`)
-                    }
+                    alert(`User deleted.`)
+                    window.location.reload(false);
                 }
             )
             .catch(
                 (error) => {
+                    alert(`User not found.`)
                     console.log(error)
                 }
             )
@@ -81,7 +78,7 @@ export class DeleteUser extends Component {
                                     <td>{el["email"]}</td>
                                     <td>{el["userType"]}</td>
                                     <td>
-                                        <Button onClick={()=>this.deleteUserRequest(el["email"])} variant="primary" type="submit" size="lg">
+                                        <Button onClick={() => this.deleteUserRequest(el["email"])} variant="primary" type="submit" size="lg">
                                             Delete
                                         </Button>
                                     </td>
