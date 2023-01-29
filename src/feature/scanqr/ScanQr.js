@@ -1,34 +1,40 @@
 import React, { Component } from 'react'
 import { Container, Row } from 'react-bootstrap'
 import QrReader from 'react-qr-scanner'
+import { loadState } from '../../localstorage/LocalStorage'
 import { instanceOfAxious } from '../../network/requests'
 
 export class ScanQr extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            delay: 1000,
+            delay: 5000,
             result: 'Pleare Scan a Qr',
+            requestSent: false
         }
 
         this.handleScan = this.handleScan.bind(this)
     }
     handleScan(data) {
-        this.sendQrRequest(data);
-        if(data != null && data != undefined){
+        if(data != null && !this.state.requestSent){
+            this.sendQrRequest(data.text);
             console.log(data);
         }
     }
     sendQrRequest(data){
-        instanceOfAxious.post("/attempt/"+data)
+        const email = loadState("email")
+        this.setState({...this.state,requestSent:true})
+        instanceOfAxious.post("/delivery/attempt/"+data,{candidateDelivererEmail: email})
             .then(response=>{
                 this.setState({
                     result: "Succesful",
+                    requestSent: false
                 })
             })
             .catch( err=>{
                 this.setState({
                     result: "Not Succesful",
+                    requestSent: false
                 })
             });
         

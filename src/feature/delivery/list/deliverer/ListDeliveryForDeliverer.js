@@ -38,7 +38,7 @@ export class ListDeliveryForDeliverer extends Component {
                     <tr>
                         <th>#</th>
                         <th>Deliverer Email</th>
-                        <th>Box Id</th>
+                        <th>Box Name</th>
                         <th>Customer Email</th>
                         <th>Status</th>
                     </tr>
@@ -49,7 +49,7 @@ export class ListDeliveryForDeliverer extends Component {
                             <tr key={el["id"]}>
                                 <td>{el["id"]}</td>
                                 <td>{el["delivererEmail"]}</td>
-                                <td>{el["boxId"]}</td>
+                                <td>{el["boxName"]}</td>
                                 <td>{el["customerEmail"]}</td>
                                 <td>{el["deliveryStatus"]}</td>
                             </tr>

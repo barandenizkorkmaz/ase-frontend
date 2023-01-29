@@ -62,7 +62,7 @@ export class AseNavbar extends Component {
                             </Nav.Link>
                             {
                                 this.state.userType === "DELIVERER" ?
-                                    <Nav.Link href="scanqr">
+                                    <Nav.Link href="/scanqr">
                                         Scan QR
                                     </Nav.Link>
                                     : <div />
