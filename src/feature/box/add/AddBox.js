@@ -13,7 +13,6 @@ export class AddBox extends Component {
         super(props);
         this.state = {
             name: "",
-            raspberryId: "",
             address: ""
         };
         this.handleChangeName = this.handleChangeName.bind(this);
@@ -58,10 +57,6 @@ export class AddBox extends Component {
                     <Form.Group className="mb-3" >
                         <Form.Label>Name</Form.Label>
                         <Form.Control type="text" placeholder="Enter name" value={this.state.name} onChange={this.handleChangeName} />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Raspberry ID</Form.Label>
-                        <Form.Control type="text" placeholder="Enter id" value={this.state.raspberryId} onChange={this.handleChangeRaspberryId} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Address</Form.Label>

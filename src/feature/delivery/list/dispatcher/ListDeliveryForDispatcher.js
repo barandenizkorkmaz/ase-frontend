@@ -12,7 +12,7 @@ export class ListDeliveryForDispatcher extends Component {
         this.state = {
             deliveries: [],
             showQr: false,
-            currentDeliverer: ""
+            currentDelivery: "",
         }
         this.getDeliveries();
         this.generateQr = this.generateQr.bind(this);
@@ -36,13 +36,30 @@ export class ListDeliveryForDispatcher extends Component {
     }
 
     generateQr(deliverer) {
-        this.setState(
-            {
-                showQr: !this.state.showQr,
-                currentDeliverer: deliverer
+        if(this.state.showQr){
+            if(deliverer["id"] === this.state.currentDelivery["id"]){
+                this.setState(
+                    {
+                        showQr: !this.state.showQr,
+                    }
+                )
+                console.log("showQr" + this.state.showQr);
+            }else{
+                this.setState(
+                    {
+                        currentDelivery: deliverer
+                    }
+                )
             }
-        )
-        console.log("showQr" + this.state.showQr);
+        }else{
+            this.setState(
+                {
+                    showQr: !this.state.showQr,
+                    currentDelivery: deliverer
+                }
+            )
+            console.log("showQr" + this.state.showQr);
+        }
     }
 
     render() {
@@ -67,7 +84,13 @@ export class ListDeliveryForDispatcher extends Component {
                                 <td>{el["boxId"]}</td>
                                 <td>{el["customerEmail"]}</td>
                                 <td>{el["deliveryStatus"]}</td>
-                                <td><Button onClick={() => this.generateQr(el)}>Generate</Button></td>
+                                <td>
+                                    <Button onClick={() => this.generateQr(el)}>
+                                        {
+                                            this.state.showQr && el["id"] === this.state.currentDelivery["id"] ? "Close Qr" : "Generate"
+                                        }
+                                    </Button>
+                                </td>
                             </tr>
                         )
                     })}
@@ -78,7 +101,7 @@ export class ListDeliveryForDispatcher extends Component {
                             className="mt-5"
                             size={256}
                             style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                            value={this.state.currentDeliverer["id"]}
+                            value={this.state.currentDelivery["id"]}
                             viewBox={`0 0 256 256`}
                         />
                         : <div />

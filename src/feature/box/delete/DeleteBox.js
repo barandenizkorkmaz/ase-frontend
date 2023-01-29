@@ -71,7 +71,6 @@ export class DeleteBox extends Component {
                         <tr>
                             <th>#</th>
                             <th>Adress</th>
-                            <th>Raspberry Id</th>
                             <th>Name</th>
                             <th></th>
                         </tr>
@@ -82,9 +81,8 @@ export class DeleteBox extends Component {
                                 <tr key={el["id"]}>
                                     <td>{el["id"]}</td>
                                     <td>{el["address"]}</td>
-                                    <td>{el["raspberryId"]}</td>
                                     <td>{el["name"]}</td>
-                                    <Button variant="primary" onClick={()=>this.deleteBoxRequest(el["id"])} type="submit" size="lg">
+                                    <Button  onClick={()=>this.deleteBoxRequest(el["id"])} variant="primary" type="submit" size="lg">
                                         Delete
                                     </Button>
                                 </tr>
