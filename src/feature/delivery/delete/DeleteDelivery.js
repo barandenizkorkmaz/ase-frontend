@@ -69,9 +69,9 @@ export class DeleteDelivery extends Component {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Deliverer Id</th>
+                            <th>Deliverer Email</th>
                             <th>Box Id</th>
-                            <th>Customer Id</th>
+                            <th>Customer Email</th>
                             <th>Status</th>
                             <th>Generate Qr</th>
                         </tr>
@@ -81,9 +81,9 @@ export class DeleteDelivery extends Component {
                             return (
                                 <tr key={el["id"]}>
                                     <td>{el["id"]}</td>
-                                    <td>{el["delivererId"]}</td>
+                                    <td>{el["delivererEmail"]}</td>
                                     <td>{el["boxId"]}</td>
-                                    <td>{el["customerId"]}</td>
+                                    <td>{el["customerEmail"]}</td>
                                     <td>{el["deliveryStatus"]}</td>
                                     <td><Button onClick={() => this.deleteDeliveryRequest(el["id"])}>Delete</Button></td>
                                 </tr>

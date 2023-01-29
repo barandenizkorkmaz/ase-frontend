@@ -15,7 +15,7 @@ export class ListBoxFroDeliverer extends Component{
     }
 
     getBoxes(){
-        instanceOfAxious.post("/deliverer/"+loadState("email"))
+        instanceOfAxious.get("/box/deliverer/"+loadState("email"))
             .then(response =>{
                 this.setState({
                     boxes: response.data
@@ -28,7 +28,6 @@ export class ListBoxFroDeliverer extends Component{
             <Table className="mt-5 justify-content-md-center" striped bordered hover>
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Adress</th>
                         <th>Name</th>
                     </tr>
@@ -37,7 +36,6 @@ export class ListBoxFroDeliverer extends Component{
                     {this.state.boxes.map((el) => {
                         return (
                             <tr key={el["id"]}>
-                                <td>{el["id"]}</td>
                                 <td>{el["address"]}</td>
                                 <td>{el["name"]}</td>
                             </tr>

@@ -12,18 +12,49 @@ export class ListDeliveryForDispatcher extends Component {
         this.state = {
             deliveries: [],
             showQr: false,
+            boxes:[],
             currentDelivery: "",
         }
         this.getDeliveries();
         this.generateQr = this.generateQr.bind(this);
     }
 
-    getDeliveries() {
-        instanceOfAxious.get("")
+    getBoxes() {
+        instanceOfAxious.get("/box/list/all")
             .then(
                 (response) => {
                     this.setState(
-                        { deliveries: [...response.data] }
+                        { 
+                            ...this.state,
+                            boxes: [...response.data]
+                        },()=>{
+                            console.log(this.state);
+                        }
+                    )
+                    
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error)
+                }
+            )
+    }
+
+    getDeliveries() {
+        let requestList = [
+            "/box/list/all",
+            "",
+        ]
+        const requests = requestList.map((url) => instanceOfAxious.get(url));
+        axios.all(requests)
+            .then(
+                (response) => {
+                    this.setState(
+                        { 
+                            deliveries: [...response[1].data],
+                            boxes: [...response[0].data],
+                         }
                     )
                     console.log(this.state.deliveries);
                 }
@@ -70,6 +101,7 @@ export class ListDeliveryForDispatcher extends Component {
                         <th>#</th>
                         <th>Deliverer Email</th>
                         <th>Box Id</th>
+                        <th>Box Name</th>
                         <th>Customer Email</th>
                         <th>Status</th>
                         <th>Generate Qr</th>
@@ -82,6 +114,7 @@ export class ListDeliveryForDispatcher extends Component {
                                 <td>{el["id"]}</td>
                                 <td>{el["delivererEmail"]}</td>
                                 <td>{el["boxId"]}</td>
+                                <td>{this.state.boxes.find(index=>index["id"]===el["boxId"])["name"]}</td>
                                 <td>{el["customerEmail"]}</td>
                                 <td>{el["deliveryStatus"]}</td>
                                 <td>
