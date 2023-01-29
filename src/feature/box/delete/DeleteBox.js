@@ -1,11 +1,10 @@
 import { Component } from 'react'
-import Form from 'react-bootstrap/Form';
 import { Row, Container } from 'react-bootstrap';
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'react-bootstrap/Button';
-import axios from "axios";
 import Table from 'react-bootstrap/Table';
 import { instanceOfAxious } from '../../../network/requests';
+import { showError } from '../../../general/SendError';
 
 
 export class DeleteBox extends Component {
@@ -32,7 +31,7 @@ export class DeleteBox extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
     }
@@ -57,7 +56,7 @@ export class DeleteBox extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
 
@@ -82,7 +81,7 @@ export class DeleteBox extends Component {
                                     <td>{el["id"]}</td>
                                     <td>{el["address"]}</td>
                                     <td>{el["name"]}</td>
-                                    <Button  onClick={()=>this.deleteBoxRequest(el["id"])} variant="primary" type="submit" size="lg">
+                                    <Button onClick={() => this.deleteBoxRequest(el["id"])} variant="primary" type="submit" size="lg">
                                         Delete
                                     </Button>
                                 </tr>

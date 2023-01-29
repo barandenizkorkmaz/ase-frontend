@@ -3,6 +3,7 @@ import { Container, Row } from 'react-bootstrap'
 import QrReader from 'react-qr-scanner'
 import { loadState } from '../../localstorage/LocalStorage'
 import { instanceOfAxious } from '../../network/requests'
+import { toast } from 'react-toastify';
 
 export class ScanQr extends Component {
     constructor(props) {
@@ -36,11 +37,17 @@ export class ScanQr extends Component {
                     result: "Not Succesful",
                     requestSent: false
                 })
+                if(err != null && err.text === "Axios Error"){
+                    toast("Something went wrong!");
+                }
             });
         
     }
     handleError(err) {
         console.error(err)
+        if(err != null && err.text === "Axios Error"){
+            toast("Something went wrong!");
+        }
     }
     render() {
         const previewStyle = {
