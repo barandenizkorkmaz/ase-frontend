@@ -1,9 +1,10 @@
 import { Component } from 'react'
 import { Row, Container } from 'react-bootstrap';
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { instanceOfAxious } from '../../../network/requests';
+import { showError } from '../../../general/SendError';
 
 
 export class DeleteDelivery extends Component {
@@ -31,7 +32,7 @@ export class DeleteDelivery extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
     }
@@ -56,7 +57,7 @@ export class DeleteDelivery extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
 

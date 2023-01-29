@@ -1,21 +1,23 @@
 import { Component } from 'react'
 import Form from 'react-bootstrap/Form';
-import { Row, Container } from 'react-bootstrap';
+import { Row, Container, Alert } from 'react-bootstrap';
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import { instanceOfAxious } from '../../../network/requests';
-
+import { showError } from '../../../general/SendError';
 
 export class AddDelivery extends Component {
+    
 
     constructor(props) {
         super(props);
         this.state = {
             delivererEmail: [],
             customerEmail: [],
-            boxes:[],
+            boxes: [],
             selectedDelivery: {},
+            error: ""
         };
         this.handleChangeDelivererId = this.handleChangeDelivererId.bind(this);
         this.handleChangeCustomerId = this.handleChangeCustomerId.bind(this);
@@ -39,7 +41,7 @@ export class AddDelivery extends Component {
                             customerEmail: [...response[1].data],
                             delivererEmail: [...response[0].data],
                             boxes: [...response[2].data],
-                            selectedDelivery:{
+                            selectedDelivery: {
                                 customerEmail: response[1].data[0],
                                 delivererEmail: response[0].data[0],
                                 boxId: response[2].data[0]["id"]
@@ -51,18 +53,18 @@ export class AddDelivery extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
     }
 
     handleChangeBoxId(event) {
-        this.setState({ 
+        this.setState({
             selectedDelivery: {
                 ...this.state.selectedDelivery,
-                boxId:event.target.value
+                boxId: event.target.value
             }
-         });
+        });
     }
 
     handleChangeDelivererId(event) {
@@ -94,7 +96,7 @@ export class AddDelivery extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
 
@@ -135,6 +137,7 @@ export class AddDelivery extends Component {
                     </div>
                 </Form>
             </Row>
+            
         </Container>
     }
 }

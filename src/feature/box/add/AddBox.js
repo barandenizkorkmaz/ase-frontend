@@ -1,10 +1,10 @@
 import { Component } from 'react'
 import Form from 'react-bootstrap/Form';
 import { Row, Container } from 'react-bootstrap';
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'react-bootstrap/Button';
-import axios from "axios";
 import { instanceOfAxious } from '../../../network/requests';
+import { showError } from '../../../general/SendError';
 
 
 export class AddBox extends Component {
@@ -44,7 +44,7 @@ export class AddBox extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
 

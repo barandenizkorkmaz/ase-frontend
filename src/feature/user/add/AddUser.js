@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import { Row, Container } from 'react-bootstrap';
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
-import axios from "axios";
+import { showError } from '../../../general/SendError';
 import { instanceOfAxious } from '../../../network/requests';
 
 
@@ -46,7 +46,7 @@ export class AddUser extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
 

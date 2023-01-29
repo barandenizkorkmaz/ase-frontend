@@ -4,6 +4,7 @@ import { Row, Container } from 'react-bootstrap';
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import { instanceOfAxious } from '../../../network/requests';
+import { showError } from '../../../general/SendError';
 
 
 export class DeleteUser extends Component {
@@ -31,7 +32,7 @@ export class DeleteUser extends Component {
             )
             .catch(
                 (error) => {
-                    console.log(error)
+                    showError(error);
                 }
             )
     }
@@ -51,8 +52,7 @@ export class DeleteUser extends Component {
             )
             .catch(
                 (error) => {
-                    alert(`User not found.`)
-                    console.log(error)
+                    showError(error);
                 }
             )
 
