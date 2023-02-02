@@ -51,7 +51,7 @@ export class AseNavbar extends Component {
         return (
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Navbar.Brand href="/home">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Brand href="/home">Ase Delivery</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
@@ -72,69 +72,69 @@ export class AseNavbar extends Component {
                                 this.state.userType === "DISPATCHER" ?
                                     (
                                         <React.Fragment>
-                                            <NavDropdown title="BoxForDispatcher" id="basic-nav-dropdown">
+                                            <NavDropdown title="Box" id="basic-nav-dropdown">
                                                 <NavDropdown.Item>
                                                     <Link to="/box/create">
-                                                        Add Box
+                                                        Add
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/box/list/all">
-                                                        List Box
+                                                        List
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/box/update">
-                                                        Update Box
+                                                        Update
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/box/delete">
-                                                        Delete Box
+                                                        Delete
                                                     </Link>
                                                 </NavDropdown.Item>
                                             </NavDropdown>
-                                            <NavDropdown title="DeliveryForDispacther" id="basic-nav-dropdown">
+                                            <NavDropdown title="Delivery" id="basic-nav-dropdown">
                                                 <NavDropdown.Item>
                                                     <Link to="/delivery/create">
-                                                        Add Delivery
+                                                        Add
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/delivery/list/dispatcher/all">
-                                                        List Delivery
+                                                        List
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/delivery/update">
-                                                        Update Delivery
+                                                        Update
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/delivery/delete">
-                                                        Delete Delivery
+                                                        Delete
                                                     </Link>
                                                 </NavDropdown.Item>
                                             </NavDropdown>
                                             <NavDropdown title="User" id="basic-nav-dropdown">
                                                 <NavDropdown.Item>
                                                     <Link to="/user/register">
-                                                        Add User
+                                                        Add
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/list/user">
-                                                        List User
+                                                        List
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/user/update">
-                                                        Update User
+                                                        Update
                                                     </Link>
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item>
                                                     <Link to="/user/delete">
-                                                        Delete User
+                                                        Delete
                                                     </Link>
                                                 </NavDropdown.Item>
                                             </NavDropdown>
@@ -145,18 +145,18 @@ export class AseNavbar extends Component {
                                 this.state.userType === "DELIVERER" ?
                                     (
                                         <React.Fragment>
-                                            <NavDropdown title="BoxForDeliverer" id="basic-nav-dropdown">
+                                            <NavDropdown title="Box" id="basic-nav-dropdown">
                                                 <NavDropdown.Item>
                                                     <Link to="/deliverer/box/list">
-                                                        List Box For Deliverer
+                                                        List
                                                     </Link>
                                                 </NavDropdown.Item>
                                             </NavDropdown>
 
-                                            <NavDropdown title="DeliveryForDeliverer" id="basic-nav-dropdown">
+                                            <NavDropdown title="Delivery" id="basic-nav-dropdown">
                                                 <NavDropdown.Item>
                                                     <Link to="/list/deliverer">
-                                                        List Delivery
+                                                        List
                                                     </Link>
                                                 </NavDropdown.Item>
                                             </NavDropdown>
