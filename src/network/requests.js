@@ -7,8 +7,17 @@ instanceOfAxious.interceptors.request.use(
     function(config) {
       const token = loadState("token"); 
       if (token) {
-        config.headers["Authorization"] = 'Bearer ' + token;
+        config.headers["Authorization"] = 'Bearer ' + token; 
       }
+      config.headers["Access-Control-Allow-Headers"] =  "*";
+      config.headers["Access-Control-Allow-Methods"] =  "*";
+      config.headers["Access-Control-Allow-Origin"] =  "*";
+      config.headers["mode"] =  "cors";
+      config.headers["referrerPolicy"] = "origin-when-cross-origin";
+      config.headers["redirect"] = "follow";
+      config.headers["credentials"] = "include";
+      config.headers["cache"] = "no-cache";
+      config.headers["method"] = ["GET","POST"];
       return config;
     },
     function(error) {
