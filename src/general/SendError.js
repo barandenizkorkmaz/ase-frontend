@@ -2,6 +2,6 @@ import { toast } from 'react-toastify';
 
 export const showError = (error) =>{
     if(error != null && error.name === "AxiosError"){
-        toast("Something went wrong!");
+        toast("Invalid Request: Please ensure that your request is correct!");
     }
 }

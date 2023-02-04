@@ -130,7 +130,7 @@ export class UpdateBox extends Component {
     render() {
         return <Container >
             {
-                this.state.boxes == null ?
+                this.state.boxes.length !== 0 ?
                     <Row className="justify-content-md-center mt-5" xs={6} md={2}>
                         <Form onSubmit={this.updateBoxRequest}>
                             <Form.Group className="mb-3" >
@@ -155,7 +155,7 @@ export class UpdateBox extends Component {
                                 </Button>
                             </div>
                         </Form>
-                    </Row> : <h1>Box not Found</h1>
+                    </Row> : <h1>No box entities exist!</h1>
             }
         </Container>
     }

@@ -26,37 +26,37 @@ export class UpdateUser extends Component {
     }
 
     handleChangeSearchUserId(event) {
-        this.setState({ 
+        this.setState({
             selectedUser: {
                 ...this.state.selectedUser,
-                userId:event.target.value
+                userId: event.target.value
             }
         });
     }
 
     handleChangeEmail(event) {
-        this.setState({ 
+        this.setState({
             selectedUser: {
                 ...this.state.selectedUser,
-                email:event.target.value
+                email: event.target.value
             }
         });
     }
 
     handleChangePassword(event) {
-        this.setState({ 
+        this.setState({
             selectedUser: {
                 ...this.state.selectedUser,
-                password:event.target.value
+                password: event.target.value
             }
         });
     }
 
     handleChangeUserType(event) {
-        this.setState({ 
+        this.setState({
             selectedUser: {
                 ...this.state.selectedUser,
-                userType:event.target.value
+                userType: event.target.value
             }
         });
     }
@@ -65,10 +65,12 @@ export class UpdateUser extends Component {
         instanceOfAxious.get("/user/list/all")
             .then(
                 (response) => {
+                    let user = response.data[0];
+                    user["password"] = "";
                     this.setState(
-                        { 
+                        {
                             users: [...response.data],
-                            selectedUser: response.data[0],
+                            selectedUser: user,
                         }
                     )
                     console.log(this.state.deliveries);
@@ -83,7 +85,7 @@ export class UpdateUser extends Component {
 
     updateUserRequest(event) {
         event.preventDefault();
-        instanceOfAxious.put("/user/update/"+this.state.userEmail, this.state.selectedUser)
+        instanceOfAxious.put("/user/update/" + this.state.userEmail, this.state.selectedUser)
             .then(
                 (response) => {
                     console.log(response)
@@ -101,7 +103,7 @@ export class UpdateUser extends Component {
 
     handleChangeSearchBoxId(event) {
         let user = this.state.users.find(index => index["email"] === event.target.value);
-        user["password"]  = "";
+        user["password"] = "";
         this.setState({
             selectedUser: user,
             userEmail: event.target.value
@@ -118,7 +120,7 @@ export class UpdateUser extends Component {
                             {this.state.users.map(function (object, i) {
                                 return <option key={i} value={object["email"]}> {object["email"]} </option>;
                             })}
-                        </Form.Select>                    
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3" >
                         <Form.Label>Email</Form.Label>
@@ -128,43 +130,43 @@ export class UpdateUser extends Component {
                         <Form.Label>Password</Form.Label>
                         <Form.Control required type="password" placeholder="Password" value={this.state.selectedUser["password"]} onChange={this.handleChangePassword} />
                     </Form.Group>
-                        <Form.Group controlId="this.state.userType">
-                          <Form.Label>User Type</Form.Label>
-                          {['radio'].map((type) => (
+                    <Form.Group controlId="this.state.userType">
+                        <Form.Label>User Type</Form.Label>
+                        {['radio'].map((type) => (
                             <div key={`inline-${type}`} className="mb-3">
-                              <Form.Check
-                                inline
-                                label="CUSTOMER"
-                                name="group1"
-                                type={type}
-                                id={`inline-${type}-1`}
-                                onChange={this.handleChangeUserType}
-                                checked={this.state.selectedUser["userType"] === "CUSTOMER"}
-                                value="CUSTOMER"
-                              />
-                              <Form.Check
-                                inline
-                                label="DELIVERER"
-                                name="group1"
-                                type={type}
-                                id={`inline-${type}-2`}
-                                onChange={this.handleChangeUserType}
-                                checked={this.state.selectedUser["userType"] === "DELIVERER"}
-                                value="DELIVERER"
-                              />
-                              <Form.Check
-                                inline
-                                label="DISPATCHER"
-                                name="group1"
-                                type={type}
-                                id={`inline-${type}-3`}
-                                onChange={this.handleChangeUserType}
-                                checked={this.state.selectedUser["userType"] === "DISPATCHER"}
-                                value="DISPATCHER"
-                              />
+                                <Form.Check
+                                    inline
+                                    label="CUSTOMER"
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-1`}
+                                    onChange={this.handleChangeUserType}
+                                    checked={this.state.selectedUser["userType"] === "CUSTOMER"}
+                                    value="CUSTOMER"
+                                />
+                                <Form.Check
+                                    inline
+                                    label="DELIVERER"
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-2`}
+                                    onChange={this.handleChangeUserType}
+                                    checked={this.state.selectedUser["userType"] === "DELIVERER"}
+                                    value="DELIVERER"
+                                />
+                                <Form.Check
+                                    inline
+                                    label="DISPATCHER"
+                                    name="group1"
+                                    type={type}
+                                    id={`inline-${type}-3`}
+                                    onChange={this.handleChangeUserType}
+                                    checked={this.state.selectedUser["userType"] === "DISPATCHER"}
+                                    value="DISPATCHER"
+                                />
                             </div>
-                          ))}
-                        </Form.Group>
+                        ))}
+                    </Form.Group>
                     <div className="d-grid gap-2">
                         <Button variant="primary" type="submit" size="lg">
                             Update
