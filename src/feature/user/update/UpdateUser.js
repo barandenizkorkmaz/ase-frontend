@@ -100,8 +100,10 @@ export class UpdateUser extends Component {
     }
 
     handleChangeSearchBoxId(event) {
+        let user = this.state.users.find(index => index["email"] === event.target.value);
+        user["password"]  = "";
         this.setState({
-            selectedUser: this.state.users.find(index => index["email"] === event.target.value),
+            selectedUser: user,
             userEmail: event.target.value
         });
     }
@@ -120,11 +122,11 @@ export class UpdateUser extends Component {
                     </Form.Group>
                     <Form.Group className="mb-3" >
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Email" value={this.state.selectedUser["email"]} onChange={this.handleChangeEmail} />
+                        <Form.Control required type="email" placeholder="Email" value={this.state.selectedUser["email"]} onChange={this.handleChangeEmail} />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" value={this.state.selectedUser["password"]} onChange={this.handleChangePassword} />
+                        <Form.Control required type="password" placeholder="Password" value={this.state.selectedUser["password"]} onChange={this.handleChangePassword} />
                     </Form.Group>
                         <Form.Group controlId="this.state.userType">
                           <Form.Label>User Type</Form.Label>

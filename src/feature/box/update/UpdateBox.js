@@ -33,7 +33,7 @@ export class UpdateBox extends Component {
             .then(
                 (response) => {
                     this.setState(
-                        { 
+                        {
                             boxes: [...response.data],
                             selectedBox: response.data[0]
                         }
@@ -108,7 +108,7 @@ export class UpdateBox extends Component {
         const id = this.state.boxId
         let updateUrl = "/box/update/" + this.state.selectedBox["id"]
         instanceOfAxious.put(updateUrl,
-            { 
+            {
                 name: this.state.selectedBox["name"],
                 address: this.state.selectedBox["address"]
             }
@@ -129,31 +129,34 @@ export class UpdateBox extends Component {
 
     render() {
         return <Container >
-            <Row className="justify-content-md-center mt-5" xs={6} md={2}>
-                <Form onSubmit={this.updateBoxRequest}>
-                    <Form.Group className="mb-3" >
-                        <Form.Label>Box ID</Form.Label>
-                        <Form.Select aria-label="Default select example" onChange={this.handleChangeSearchBoxId}>
-                            {this.state.boxes.map(function (object, i) {
-                                return <option key={i} value={object["id"]}> {object["id"]} </option>;
-                            })}
-                        </Form.Select>
-                    </Form.Group>
-                    <Form.Group className="mb-3" >
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Name" value={this.state.selectedBox["name"]} onChange={this.handleChangeName} />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Address</Form.Label>
-                        <Form.Control type="text" placeholder="Address" value={this.state.selectedBox["address"]} onChange={this.handleChangeAddress} />
-                    </Form.Group>
-                    <div className="d-grid gap-2">
-                        <Button variant="primary" type="submit" size="lg">
-                            Update
-                        </Button>
-                    </div>
-                </Form>
-            </Row>
+            {
+                this.state.boxes == null ?
+                    <Row className="justify-content-md-center mt-5" xs={6} md={2}>
+                        <Form onSubmit={this.updateBoxRequest}>
+                            <Form.Group className="mb-3" >
+                                <Form.Label>Box ID</Form.Label>
+                                <Form.Select aria-label="Default select example" onChange={this.handleChangeSearchBoxId}>
+                                    {this.state.boxes.map(function (object, i) {
+                                        return <option key={i} value={object["id"]}> {object["id"]} </option>;
+                                    })}
+                                </Form.Select>
+                            </Form.Group>
+                            <Form.Group className="mb-3" >
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control type="text" placeholder="Name" value={this.state.selectedBox["name"]} onChange={this.handleChangeName} />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Address</Form.Label>
+                                <Form.Control type="text" placeholder="Address" value={this.state.selectedBox["address"]} onChange={this.handleChangeAddress} />
+                            </Form.Group>
+                            <div className="d-grid gap-2">
+                                <Button variant="primary" type="submit" size="lg">
+                                    Update
+                                </Button>
+                            </div>
+                        </Form>
+                    </Row> : <h1>Box not Found</h1>
+            }
         </Container>
     }
 }

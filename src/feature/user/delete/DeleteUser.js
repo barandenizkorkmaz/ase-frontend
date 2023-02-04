@@ -5,6 +5,8 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import { instanceOfAxious } from '../../../network/requests';
 import { showError } from '../../../general/SendError';
+import { loadState, saveState } from '../../../localstorage/LocalStorage';
+import { logout } from '../../../general/Logout';
 
 
 export class DeleteUser extends Component {
@@ -47,7 +49,10 @@ export class DeleteUser extends Component {
                 (response) => {
                     console.log(response)
                     alert(`User deleted.`)
-                    window.location.reload(false);
+                    let loginUserEmail = loadState("email");
+                    if(loginUserEmail === id){
+                        logout();
+                    }
                 }
             )
             .catch(

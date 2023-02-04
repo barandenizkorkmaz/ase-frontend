@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { loadState, saveState } from '../localstorage/LocalStorage';
 import { LocalStorageKey } from '../localstorage/LocalStorageKey'
+import { logout } from './Logout';
 
 export class AseNavbar extends Component {
 
@@ -39,9 +40,7 @@ export class AseNavbar extends Component {
 
     logoutClicked(event) {
         if (loadState("login") === true) {
-            saveState("login", false);
-            saveState("token", "");
-            saveState("userType", "");
+            logout();
         } else {
             window.location.href = "/home";
         }
